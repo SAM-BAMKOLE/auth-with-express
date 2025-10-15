@@ -2,7 +2,7 @@ name: Keep Render App Alive
 
 on:
   schedule:
-    - cron: "*/7 5-22 * * *" # every 7 minutes excluding quiet time 6:00-23:59 UTC
+    - cron: "*/7 5-24 * * *" # every 7 minutes excluding quiet time 6:00-23:59 UTC
   workflow_dispatch:
 
 jobs:
@@ -21,19 +21,19 @@ jobs:
           path: .last-ping
           key: ping-timestamp
 
-      - name: Ping Render App
+      - name: Ping Render Auth-Express App
         run: |
           node <<'EOF'
           const fs = require("fs");
           const https = require("https");
 
-          const url = "https://task-manager-inertia-django.onrender.com";
+          const url = "https://auth-with-express.onrender.com/";
           const now = new Date();
           const hour = now.getUTCHours() + 1; // adjust if needed
           const tsFile = ".last-ping";
 
           // Skip quiet hours
-          if (hour >= 23 || hour < 6) {
+          if (hour >= 24 || hour < 5) {
             console.log("⏸️ Skipping ping: quiet hours.");
             process.exit(0);
           }
@@ -45,10 +45,10 @@ jobs:
           }
 
           const elapsedMin = (Date.now() - lastPing) / 60000;
-          const forcePing = elapsedMin >= 12;
+          const forcePing = elapsedMin >= 10;
 
           if (forcePing || Math.random() < 0.6) {
-            console.log(forcePing ? "⏰ Forced ping (>=12 min)" : "🎲 Random ping");
+            console.log(forcePing ? "⏰ Forced ping (>=10 min)" : "🎲 Random ping");
             const req = https.get(url, (res) => {
               console.log(`✅ Pinged ${url}, status: ${res.statusCode}`);
 
