@@ -1,9 +1,9 @@
-// import { PrismaClient } from "../../prisma/generated/prisma/client.js";
+import { PrismaClient } from "../../prisma/generated/prisma/client.js";
 
 // import { PrismaClient } from "@prisma/client";
 // export const prisma = new PrismaClient();
 
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 import { PrismaLibSQL } from "@prisma/adapter-libsql";
 
 const adapter = new PrismaLibSQL({
