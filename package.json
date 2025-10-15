@@ -17,6 +17,8 @@
   "license": "ISC",
   "packageManager": "pnpm@10.18.2",
   "dependencies": {
+    "@libsql/client": "^0.15.15",
+    "@prisma/adapter-libsql": "^6.17.1",
     "@prisma/client": "6.17.1",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
