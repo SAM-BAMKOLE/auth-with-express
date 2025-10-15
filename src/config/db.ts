@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import { PrismaClient } from "../../prisma/generated/prisma/client.js";
 
 // import { PrismaClient } from "@prisma/client";
@@ -11,4 +13,12 @@ const adapter = new PrismaLibSQL({
   authToken: process.env.TURSO_AUTH_TOKEN as string,
 });
 
-export const prisma = new PrismaClient({ adapter });
+let prisma = new PrismaClient({ adapter });
+
+if (process.env.NODE_ENV === "production") {
+  prisma = new PrismaClient({ adapter });
+} else {
+  prisma = new PrismaClient();
+}
+
+export { prisma };
