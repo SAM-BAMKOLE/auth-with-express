@@ -75,10 +75,11 @@ export const userSignin: RequestHandler = asyncHandler(
       },
     });
 
+    const isProduction = process.env.NODE_ENV === "production";
     res.cookie("refreshToken", refreshToken, {
       maxAge: 10 * 60 * 1000,
-      secure: process.env.NODE_ENV === "production" ? true : false,
-      sameSite: "lax",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
       httpOnly: true,
     });
 
